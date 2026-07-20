@@ -1,0 +1,220 @@
+/* Global body - Keep as is */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #25343F;
+}
+
+/* Navbar - Keep as is */
+#navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #25343F;
+  color: #FF9B51;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 120px;
+  transition:
+    transform 0.50s ease,
+    box-shadow 0.50s ease;
+}
+
+/* When visible - Keep as is */
+#navbar.show {
+  transform: translateY(0);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* When hidden - Keep as is */
+#navbar.hide {
+  transform: translateY(-100%);
+  box-shadow: none;
+}
+
+/* Left navbar links - Keep as is */
+#leftnavbar a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Left branding - Keep as is */
+#leftnavbar {
+  display: flex;
+  align-items: flex-end;
+}
+
+#leftnavbar p {
+  padding-left: 10px;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+#leftnavbar h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ===== UPDATED: Right navigation links with image styling ===== */
+#navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  align-items: center; /* Ensure vertical alignment */
+}
+
+#navbar ul li a {
+  text-decoration: none;
+  color: #FF9B51;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between image and text */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Profile link specific styling */
+#navbar ul li:has(img) a {
+  padding: 6px 12px; /* Slightly less padding for profile */
+}
+
+/* Image styling */
+#navbar ul li img {
+        width: 26px;
+        height: 26px;
+          border-radius: 50%; 
+  object-fit: cover; /* Ensure image covers area properly */
+  /* border: 2px solid rgba(255, 155, 81, 0.3);  */
+  background-color: #EAEFEF; /* Fallback background */
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for links */
+#navbar ul li a:hover {
+  background-color: #EAEFEF;
+  transform: translateY(-1px);
+}
+
+/* Specific hover for profile image */
+#navbar ul li a:hover img {
+  border-color: #FF9B51; /* Change border color on hover */
+  transform: scale(1.05); /* Slight scale effect */
+}
+
+/* Active/current page styling */
+#navbar ul li a.active {
+  background-color: rgba(255, 155, 81, 0.1);
+  border: 1px solid rgba(255, 155, 81, 0.3);
+}
+
+/* ===== Mobile Responsive - UPDATED ===== */
+@media (max-width: 768px) {
+  #navbar {
+    align-items: flex-start;
+    padding: 12px 5px;
+  }
+
+  #leftnavbar {
+    flex-direction: column;
+    align-items: self-end;
+  }
+
+  #leftnavbar h1 {
+    font-size: 20px;
+  }
+
+  #leftnavbar p {
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 2px;
+    font-size: 11px;
+    opacity: 0.85;
+  }
+
+  /* Updated mobile navigation */
+  #navbar ul {
+    width: auto;
+    justify-content: flex-end;
+    margin-top: 10px;
+    gap: 8px; /* Reduced gap for mobile */
+  }
+
+  #navbar ul li a {
+    font-size: 14px; /* Slightly smaller font for mobile */
+    font-weight: 500;
+    padding: 6px 8px; /* Reduced padding for mobile */
+    gap: 6px; /* Reduced gap between image and text */
+  }
+
+  /* Smaller image on mobile */
+  #navbar ul li img {
+    width: 26px;
+    height: 26px;
+    border-width: 1px;
+  }
+
+
+
+  /* Hide "profile" text on very small screens, keep only image */
+  @media (max-width: 480px) {
+    #navbar ul li a span:not(.img-wrapper) {
+      display: none; /* Hide text, keep image */
+    }
+    
+    #navbar ul li a {
+      padding: 6px; /* Even smaller padding */
+    }
+    
+    #navbar ul {
+      gap: 4px;
+    }
+  }
+}
+
+/* ===== Optional: Add dropdown for profile ===== */
+/* If you want to add a dropdown menu later */
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #25343F;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  min-width: 150px;
+  z-index: 1001;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #FF9B51;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 155, 81, 0.1);
+}
+
+.dropdown-menu a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(234, 239, 239, 0.1);
+}
