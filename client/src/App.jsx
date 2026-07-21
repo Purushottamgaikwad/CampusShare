@@ -19,16 +19,21 @@ function App() {
 
     <UserProvider>
 
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/dashboard" element={<Dashboard/>}/>
-      <Route path="/dashboard/profile" element={<Profile/>}/>
-      <Route path="/dashboard/randomprofile/:id"element={<RandomProfile />}/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-
-    </Routes>
+        <Route path="/dashboard" element={
+          <UserProvider><Dashboard /></UserProvider>
+        } />
+        <Route path="/dashboard/profile" element={
+          <UserProvider><Profile /></UserProvider>
+        } />
+        <Route path="/dashboard/randomprofile/:id" element={
+          <UserProvider><RandomProfile /></UserProvider>
+        } />
+      </Routes>
 </UserProvider>
 
   
