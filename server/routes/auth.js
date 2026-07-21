@@ -36,21 +36,29 @@ router.post("/signup", async (req, res) => {
       sql,
       [username, collegeName, currentYear, email, hashedPassword],
       (err, result) => {
-        if (err) {
-          // ✅ Handle duplicate email / username properly
-          if (err.code === "ER_DUP_ENTRY") {
-            return res.status(409).json({ error: "User already exists" });
-          }
+          if (err) {
+            console.error("Database Error:", err);
 
-          return res.status(500).json({ error: "Database error" });
-        }
+            if (err.code === "ER_DUP_ENTRY") {
+              return res.status(409).json({ error: "User already exists" });
+            }
+
+            return res.status(500).json({
+              error: err.message,
+              code: err.code
+            });
+          }
 
         return res.status(201).json({ message: "Signup successful" });
       }
     );
   } catch (err) {
-    return res.status(500).json({ error: "Server error" });
-  }
+  console.error("Signup Error:", err);
+
+  return res.status(500).json({
+    error: err.message
+  });
+}
 });
 
 // -----------------------------------------------------------------------------------------
