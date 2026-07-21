@@ -8,16 +8,19 @@ export function ChatProvider({ children }) {
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [activeChatUser, setActiveChatUser] = useState(null);
 
-    useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/chatlist`, {
-            credentials: 'include'
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data)) setChatList(data);
+        useEffect(() => {
+            fetch(`${import.meta.env.VITE_API_URL}/api/chatlist`, {
+                credentials: 'include'
             })
-            .catch(err => console.error('chatlist load error:', err));
-    }, []);
+                .then(res => {
+                    if (!res.ok) return null; // not logged in, skip silently
+                    return res.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data)) setChatList(data);
+                })
+                .catch(err => console.error('chatlist load error:', err));
+        }, []);
 
     const openChatWith = (user) => {
         setChatList(prev => {
