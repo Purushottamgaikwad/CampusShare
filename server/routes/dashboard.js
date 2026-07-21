@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser());
 
 
-const jwtsecret = "campusshare@123";
+const jwtsecret =  process.env.jwtsecret;
 const router = express.Router();
 
 
@@ -54,7 +54,7 @@ const authmiddleware = (req, res, next) => {
   if (!token) {
     // console.log(token);
 
-    return res.status(401).json({ error: "Unauthsadfasdzed" });
+    return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {

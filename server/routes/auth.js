@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import db from '../db.js';
 
 
-const jwtsecret = "campusshare@123";
+const jwtsecret =  process.env.jwtsecret;
 
 
 const app = express();
