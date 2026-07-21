@@ -9,7 +9,7 @@ export function UserProvider({ children }) {
   const [loading, setLoading] = useState(true);      // ← add kar (optional but good)
 
   useEffect(() => {
-    fetch("http://localhost:5000/dashboard", {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard`, {
       credentials: "include"
     })
       .then((res) => {

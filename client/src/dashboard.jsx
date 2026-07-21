@@ -34,7 +34,7 @@ const handleMessage =(post)=>{
   openChatWith({
     id:post.id,
     username:post.username,
-    avatar: post.profileimglink ? `http://localhost:5000${post.profileimglink}` : defaultImg
+    avatar: post.profileimglink ? `${import.meta.env.VITE_API_URL}${post.profileimglink}` : defaultImg
   });
   // console.log(post);
 };
@@ -61,7 +61,7 @@ const handleView = (post) => {
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/dashboard", {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard`, {
       credentials: "include"
     })
       .then((res) => {
@@ -82,7 +82,7 @@ const handleView = (post) => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5000/dashboard/all/userposts", {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard/all/userposts`, {
 
       method: "POST",
       credentials: "include",
@@ -116,7 +116,7 @@ const handleView = (post) => {
 
   return (
     <>
-      <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? `http://localhost:5000${userProfile.user.profileimglink}` : defaultImg} />
+      <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${userProfile.user.profileimglink}` : defaultImg} />
       {/* <h2>Dashboard</h2> */}
 
       {/* <h1>Welcome {userProfile.imageUrl}</h1> */}
@@ -674,10 +674,10 @@ const handleView = (post) => {
           {postData && postData.length > 0 ? (
             postData.map(post => (
               <div key={post.post_id} className={`dashboard-post-card ${post.isInactive ? "inactive" : ""}`}>
-                <img src={`http://localhost:5000${post.imglink}`} alt="post" />
+                <img src={`${import.meta.env.VITE_API_URL}${post.imglink}`} alt="post" />
                 
                 <div className="user" onClick={() => navigate(`/dashboard/randomprofile/${post.id}`)}>
-                  <img src={`http://localhost:5000${post.profileimglink}`} alt="" />
+                  <img src={`${import.meta.env.VITE_API_URL}${post.profileimglink}`} alt="" />
                   <span className="userdetails">
                     {/* <h2>{post.id}</h2> */}
                     <h2>{post.username}</h2>
@@ -739,7 +739,7 @@ const handleView = (post) => {
            
             <div className="modal-user">
                   <img
-                    src={`http://localhost:5000${selectedPost.profileimglink}`}
+                    src={`${import.meta.env.VITE_API_URL}${selectedPost.profileimglink}`}
                     alt=""
                   />
                   <div>
@@ -749,7 +749,7 @@ const handleView = (post) => {
                 </div>
 
             <div className="modal-post">
-            <img src={`http://localhost:5000${selectedPost.imglink}`} alt="post"  />
+            <img src={`${import.meta.env.VITE_API_URL}${selectedPost.imglink}`} alt="post"  />
             <h2>{selectedPost.post_title}</h2>
             <h2>₹{selectedPost.post_price}</h2>
             <p>{selectedPost.post_description}</p>

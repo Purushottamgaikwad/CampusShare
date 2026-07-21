@@ -29,7 +29,7 @@ const handleView = (post) => {
 const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/dashboard/profile/userposts/${id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile/userposts/${id}`, {
       credentials: "include"
     })
       .then((res) => {
@@ -51,7 +51,7 @@ const { id } = useParams();
   //--------------------------------------------------------------------
 
 useEffect(() => {
-  fetch(`http://localhost:5000/dashboard/profile/${id}`, {
+  fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile/${id}`, {
     credentials: "include"
   })
     .then((res) => {
@@ -71,14 +71,14 @@ useEffect(() => {
 
 
   return <>
-    <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? `http://localhost:5000${userProfile.user.profileimglink}` : defaultImg} />
+    <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${userProfile.user.profileimglink}` : defaultImg} />
 {/* <h1>{userProfile.imageUrl}</h1> */}
     <div className="userProfile">
       <div className="profile-header">
         {/* Profile Image with Edit Option */}
         <div className="profile-img-container">
           <img
-            src={data?.user?.profileimglink ? `http://localhost:5000${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />          
+            src={data?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />          
         </div>
 
         <div className="profile-info">
@@ -106,7 +106,7 @@ useEffect(() => {
         {postData && postData.length > 0 ? (
           postData.map(post => (
             <div key={post.id} className={`post-card ${post.isInactive ? "inactive" : ""}`}>
-              <img src={`http://localhost:5000${post.imglink}`} alt="post" />
+              <img src={`${import.meta.env.VITE_API_URL}${post.imglink}`} alt="post" />
               <h2>{post.post_title}</h2>
               <h2>{post.post_price}</h2>
 
@@ -135,7 +135,7 @@ useEffect(() => {
            
             {/* <div className="modal-user">
                   <img
-                    src={`http://localhost:5000${selectedPost.profileimglink}`}
+                    src={`${import.meta.env.VITE_API_URL}${selectedPost.profileimglink}`}
                     alt=""
                   />
                   <div>
@@ -145,7 +145,7 @@ useEffect(() => {
                 </div> */}
 
             <div className="modal-post">
-            <img src={`http://localhost:5000${selectedPost.imglink}`} alt="post"  />
+            <img src={`${import.meta.env.VITE_API_URL}${selectedPost.imglink}`} alt="post"  />
             <h2>{selectedPost.post_title}</h2>
             <h2>₹{selectedPost.post_price}</h2>
             <p>{selectedPost.post_description}</p>

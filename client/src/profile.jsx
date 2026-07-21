@@ -81,7 +81,7 @@ function Profile() {
     const formData = new FormData();
     formData.append("profileImage", profileImageFile);
 
-    fetch("http://localhost:5000/dashboard/profile/img", {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile/img`, {
       method: "PUT",
       credentials: "include",
       body: formData
@@ -112,7 +112,7 @@ const handleView = (post) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/dashboard/edit", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/dashboard/edit`, {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -160,7 +160,7 @@ const handleView = (post) => {
     // ✅ append image file (KEY NAME MUST MATCH multer)
     formData.append("image", imageFile);
 
-    const res = await fetch("http://localhost:5000/dashboard/profile/post", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile/post`, {
       method: "POST",
       credentials: "include",
       body: formData, // ❗ NO headers here
@@ -199,7 +199,7 @@ const handleView = (post) => {
     if (confirmResponse) {
 
       const res = await fetch(
-        `http://localhost:5000/dashboard/profile/userposts/${postId}`,
+        `${import.meta.env.VITE_API_URL}/dashboard/profile/userposts/${postId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -221,7 +221,7 @@ const handleView = (post) => {
 
   //-------------------------------------------------------------
   useEffect(() => {
-    fetch("http://localhost:5000/dashboard/profile/userposts", {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile/userposts`, {
       credentials: "include"
     })
       .then((res) => {
@@ -255,7 +255,7 @@ const handleView = (post) => {
 
   //--------------------------------------------------------------------
   useEffect(() => {
-    fetch("http://localhost:5000/dashboard/profile", {
+    fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile`, {
       credentials: "include"
     })
       .then((res) => {
@@ -282,7 +282,7 @@ const handleView = (post) => {
         {/* Profile Image with Edit Option */}
         <div className="profile-img-container">
           <img
-            src={data?.user?.profileimglink ? `http://localhost:5000${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />
+            src={data?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />
           <button className="edit-img-btn" title="Change photo" onClick={() => fileInputRef.current.click()}>📷</button>
           <input id="profile"
             type="file"
@@ -753,7 +753,7 @@ const handleView = (post) => {
         {postData && postData.length > 0 ? (
           postData.map(post => (
             <div key={post.id} className={`post-card ${post.isInactive ? "inactive" : ""}`}>
-              <img src={`http://localhost:5000${post.imglink}`} alt="post" />
+              <img src={`${import.meta.env.VITE_API_URL}${post.imglink}`} alt="post" />
               <h2>{post.post_title}</h2>
               <h2>{post.post_price}</h2>
 
@@ -786,7 +786,7 @@ const handleView = (post) => {
            
             {/* <div className="modal-user">
                   <img
-                    src={`http://localhost:5000${selectedPost.profileimglink}`}
+                    src={`${import.meta.env.VITE_API_URL}${selectedPost.profileimglink}`}
                     alt=""
                   />
                   <div>
@@ -796,7 +796,7 @@ const handleView = (post) => {
                 </div> */}
 
             <div className="modal-post">
-            <img src={`http://localhost:5000${selectedPost.imglink}`} alt="post"  />
+            <img src={`${import.meta.env.VITE_API_URL}${selectedPost.imglink}`} alt="post"  />
             <h2>{selectedPost.post_title}</h2>
             <h2>₹{selectedPost.post_price}</h2>
             <p>{selectedPost.post_description}</p>

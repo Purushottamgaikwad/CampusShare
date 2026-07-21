@@ -145,4 +145,4 @@ If you want next:
 * Glass effect using this palette
 * Tailwind config version
 
-Just tell me 👉 **next step** 🚀
+

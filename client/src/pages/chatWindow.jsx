@@ -28,7 +28,7 @@ function ChatWindow({ currentUser }) {
     setMessages([]);
     // console.log('Loading messages for chat with user ID:', activeChatUser.id);
 
-    fetch(`http://localhost:5000/api/messages/${activeChatUser.id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/messages/${activeChatUser.id}`, {
       credentials: 'include'
     })
       .then(res => res.json())

@@ -94,7 +94,7 @@ function ChatListItem({user, onClick}){
 
         <img  src={
             user.avatar
-              ? `http://localhost:5000${user.avatar}`
+              ? `${import.meta.env.VITE_API_URL}${user.avatar}`
               : 'https://via.placeholder.com/36'
           } alt= {user.username}
                 style={{
