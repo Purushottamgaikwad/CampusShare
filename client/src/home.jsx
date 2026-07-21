@@ -1,7 +1,6 @@
 import Navbar from './navbar.jsx'
 import Footer from './footer.jsx'
 import {Link} from "react-router-dom";
-import header1 from './assets/header1.png';
 import "./styles/body.css"
 
 function Home(){
@@ -11,8 +10,7 @@ function Home(){
     <div id="bodycontainer">
 
        <header className="hero">
-        <img src={header1} alt="Students sharing books on campus"/>
-        
+        <img alt="Students sharing books on campus" src="/header1.png" />        
         <div className="hero-text">
             <h1>Campus Share</h1>
             <p className="tagline">Share More. Pay Less. Campus Life Made Simple.</p>
