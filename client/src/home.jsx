@@ -42,7 +42,7 @@ function Home(){
             <h1>“Campus Essentials”</h1>
             <div className="features-content">
                 <div className="feature-card">
-                    <img src="./public/resource sharing.png" alt="sharing images" />
+                    <img src="/resource sharing.png" alt="sharing images" />
                     <h3>Resource Sharing</h3>
                     <ul>
                         <li>Share books, tools, lab kits, and daily-use items</li>
@@ -52,7 +52,7 @@ function Home(){
                 </div>
 
                 <div className="feature-card">
-                    <img src="./public/pg.png" alt="sharing images" />
+                    <img src="/pg.png" alt="sharing images" />
                     <h3>PG & Accommodation Discovery</h3>
                     <ul>
                         <li>Discover student-friendly PGs around colleges</li>
@@ -62,7 +62,7 @@ function Home(){
                 </div>
 
                 <div className="feature-card">
-                    <img src="./public/community driven.png" alt="sharing images" />
+                    <img src="/community driven.png" alt="sharing images" />
                     <h3>Community-Driven Ecosystem</h3>
                     <ul>
                         <li>Encourages reuse and sustainability</li>
