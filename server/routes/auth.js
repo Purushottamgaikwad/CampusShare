@@ -80,22 +80,22 @@ router.post("/login", (req, res) => {
       return res.status(401).json({ error: "Wrong password" });
     }
 
-    // ✅ JWT with user ID only
+    //  JWT with user ID only
     const token = jwt.sign(
       { id: user.id },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    // ✅ HTTP-only cookie
+    //  HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // true in production
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000
     });
 
-    // ✅ Send ONLY safe user data
+    //  Send ONLY safe user data
     return res.json({
       message: "logged in",
       userdata: {
