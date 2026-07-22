@@ -146,7 +146,7 @@ useEffect(() => {
                 </div> */}
 
           <div className="modal-post">
-              {console.log("selectedPost imglink:", selectedPost.imglink)}
+              {/* {console.log("selectedPost imglink:", selectedPost.imglink)} */}
               <img src={selectedPost.imglink} alt="post" />
               <h2>{selectedPost.post_title}</h2>
               <h2>₹{selectedPost.post_price}</h2>

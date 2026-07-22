@@ -747,7 +747,7 @@ const handleView = (post) => {
                 </div>
 
             <div className="modal-post">
-            <img src={`${import.meta.env.VITE_API_URL}${selectedPost.imglink}`} alt="post"  />
+            <img src={selectedPost.imglink} alt="post" />
             <h2>{selectedPost.post_title}</h2>
             <h2>₹{selectedPost.post_price}</h2>
             <p>{selectedPost.post_description}</p>
