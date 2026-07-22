@@ -34,7 +34,7 @@ const handleMessage =(post)=>{
   openChatWith({
     id:post.id,
     username:post.username,
-    avatar: post.profileimglink ? `${import.meta.env.VITE_API_URL}${post.profileimglink}` : defaultImg
+    avatar: post.profileimglink ? post.profileimglink : defaultImg
   });
   // console.log(post);
 };
@@ -116,8 +116,7 @@ const handleView = (post) => {
 
   return (
     <>
-      <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${userProfile.user.profileimglink}` : defaultImg} />
-      {/* <h2>Dashboard</h2> */}
+      <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? userProfile.user.profileimglink : defaultImg} />      {/* <h2>Dashboard</h2> */}
 
       {/* <h1>Welcome {userProfile.imageUrl}</h1> */}
       <div className="dashboard">
@@ -674,10 +673,9 @@ const handleView = (post) => {
           {postData && postData.length > 0 ? (
             postData.map(post => (
               <div key={post.post_id} className={`dashboard-post-card ${post.isInactive ? "inactive" : ""}`}>
-                <img src={`${import.meta.env.VITE_API_URL}${post.imglink}`} alt="post" />
-                
+                <img src={post.imglink} alt="post" />                
                 <div className="user" onClick={() => navigate(`/dashboard/randomprofile/${post.id}`)}>
-                  <img src={`${import.meta.env.VITE_API_URL}${post.profileimglink}`} alt="" />
+                  <img src={post.profileimglink} alt="" />
                   <span className="userdetails">
                     {/* <h2>{post.id}</h2> */}
                     <h2>{post.username}</h2>
@@ -739,7 +737,7 @@ const handleView = (post) => {
            
             <div className="modal-user">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}${selectedPost.profileimglink}`}
+                    src={selectedPost.profileimglink}
                     alt=""
                   />
                   <div>

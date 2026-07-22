@@ -71,14 +71,14 @@ useEffect(() => {
 
 
   return <>
-    <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${userProfile.user.profileimglink}` : defaultImg} />
+    <Navbar loggedin={loggedin} profileImg={userProfile?.user?.profileimglink ? userProfile.user.profileimglink : defaultImg} />
 {/* <h1>{userProfile.imageUrl}</h1> */}
     <div className="userProfile">
       <div className="profile-header">
         {/* Profile Image with Edit Option */}
         <div className="profile-img-container">
           <img
-            src={data?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />          
+            src={data?.user?.profileimglink ? `${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />          
         </div>
 
         <div className="profile-info">
@@ -106,7 +106,7 @@ useEffect(() => {
         {postData && postData.length > 0 ? (
           postData.map(post => (
             <div key={post.id} className={`post-card ${post.isInactive ? "inactive" : ""}`}>
-              <img src={`${import.meta.env.VITE_API_URL}${post.imglink}`} alt="post" />
+              <img src={post.imglink} alt="post" />
               <h2>{post.post_title}</h2>
               <h2>{post.post_price}</h2>
 
@@ -135,7 +135,7 @@ useEffect(() => {
            
             {/* <div className="modal-user">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}${selectedPost.profileimglink}`}
+                    src={selectedPost.profileimglink}
                     alt=""
                   />
                   <div>
@@ -145,7 +145,7 @@ useEffect(() => {
                 </div> */}
 
             <div className="modal-post">
-            <img src={`${import.meta.env.VITE_API_URL}${selectedPost.imglink}`} alt="post"  />
+            <img src={selectedPost.imglink} alt="post" />
             <h2>{selectedPost.post_title}</h2>
             <h2>₹{selectedPost.post_price}</h2>
             <p>{selectedPost.post_description}</p>

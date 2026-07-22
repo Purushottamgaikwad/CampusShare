@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import multer from  'multer';
 import fs from 'fs';
 import path from 'path';
+import { storage } from '../config/cloudinary.js';
 const app = express();
 app.use(cookieParser());
 
@@ -43,7 +44,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
 
 //------------------------ JWT authmiddleware ------------------------
 
@@ -143,48 +143,45 @@ router.put("/dashboard/edit", authmiddleware, (req, res) => {
 
 //---------------------dashboard profile post -------------------------------------
 
-router.post('/dashboard/profile/post',authmiddleware,upload.single("image"),  (req,res)=>{
-    const {post_title,post_price,post_description,post_category} = req.body;
-   const imagepath = req.file ? `/uploads/posts/${req.file.filename}`: null; 
-    // console.log(req.body);
-    // console.log(req.file.filename);
-    if(!post_title || !post_description || !post_category || !post_price){
-      return res.status(400).json({error:"Required fields missing"});
-    };
-    
-    db.query(
-      "INSERT INTO userposts (user_id,imglink,post_title,post_price,post_description , post_category) VALUES(?,?,?,?,?,?)",
-      [req.userId,imagepath,post_title,post_price,post_description,post_category],
-      (err)=>{
-        if(err) return res.status(550).json({error:"DB error"});
-         res.json({message:"Post created successfully"});
-      }
-    );
+router.post('/dashboard/profile/post', authmiddleware, upload.single("image"), (req, res) => {
+    const { post_title, post_price, post_description, post_category } = req.body;
+    const imagepath = req.file ? req.file.path : null; // Cloudinary URL now
 
+    if (!post_title || !post_description || !post_category || !post_price) {
+        return res.status(400).json({ error: "Required fields missing" });
+    }
+
+    db.query(
+        "INSERT INTO userposts (user_id, imglink, post_title, post_price, post_description, post_category) VALUES(?,?,?,?,?,?)",
+        [req.userId, imagepath, post_title, post_price, post_description, post_category],
+        (err) => {
+            if (err) return res.status(550).json({ error: "DB error" });
+            res.json({ message: "Post created successfully" });
+        }
+    );
 });
 //------------------------------delete profile posts--------------------------------
 
-router.put('/dashboard/profile/img',authmiddleware, upload.single("profileImage"),(req, res) => {
+router.put('/dashboard/profile/img', authmiddleware, upload.single("profileImage"), (req, res) => {
 
     if (!req.file) {
-      return res.status(400).json({ error: "No image uploaded" });
+        return res.status(400).json({ error: "No image uploaded" });
     }
 
-    const profileimglink = `/uploads/profiles/${req.file.filename}`;
+    const profileimglink = req.file.path; // Cloudinary URL now
 
     db.query(
-      'UPDATE users SET profileimglink = ? WHERE id = ?',
-      [profileimglink, req.userId],
-      (err) => {
-        if (err) {
-          return res.status(500).json({ error: "DB error" });
-        }
+        'UPDATE users SET profileimglink = ? WHERE id = ?',
+        [profileimglink, req.userId],
+        (err) => {
+            if (err) {
+                return res.status(500).json({ error: "DB error" });
+            }
 
-        res.json({ message: "Profile image updated", profileimglink });
-      }
+            res.json({ message: "Profile image updated", profileimglink });
+        }
     );
-  }
-);
+});
 
 
 //------------------------------profile posts--------------------------------

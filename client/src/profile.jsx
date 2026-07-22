@@ -280,16 +280,18 @@ const handleView = (post) => {
     <div className="userProfile">
       <div className="profile-header">
         {/* Profile Image with Edit Option */}
-        <div className="profile-img-container">
+       <div className="profile-img-container">
           <img
-            src={data?.user?.profileimglink ? `${import.meta.env.VITE_API_URL}${data.user.profileimglink}?t=${Date.now()}` : defaultImg} alt="Profile" />
+              src={data?.user?.profileimglink ? `${data.user.profileimglink}?t=${Date.now()}` : defaultImg}
+              alt="Profile"
+          />
           <button className="edit-img-btn" title="Change photo" onClick={() => fileInputRef.current.click()}>📷</button>
           <input id="profile"
-            type="file"
-            ref={fileInputRef}
-            accept="image/*"
-            hidden
-            onChange={handleProfileImageChange}
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              hidden
+              onChange={handleProfileImageChange}
           />
         </div>
 
@@ -750,27 +752,26 @@ const handleView = (post) => {
 
       <hr />
       <div className="post-container">
-        {postData && postData.length > 0 ? (
-          postData.map(post => (
+          {postData && postData.length > 0 ? (
+        postData.map(post => (
             <div key={post.id} className={`post-card ${post.isInactive ? "inactive" : ""}`}>
-              <img src={`${import.meta.env.VITE_API_URL}${post.imglink}`} alt="post" />
-              <h2>{post.post_title}</h2>
-              <h2>{post.post_price}</h2>
+                <img src={post.imglink} alt="post" />
+                <h2>{post.post_title}</h2>
+                <h2>{post.post_price}</h2>
 
-              <p>{post.post_description}</p>
-              <div className="action-btns">
+                <p>{post.post_description}</p>
+                <div className="action-btns">
 
-                {/* <button className="action-btn secondary" onClick={() => handleActive(post.id)}>inactive</button> */}
-                <button className="action-btn secondary" onClick={() => handleDelete(post.id)}>delete</button>
-                <button className="action-btn secondary" onClick={() => handleView(post)}>view</button>
+                    {/* <button className="action-btn secondary" onClick={() => handleActive(post.id)}>inactive</button> */}
+                    <button className="action-btn secondary" onClick={() => handleDelete(post.id)}>delete</button>
+                    <button className="action-btn secondary" onClick={() => handleView(post)}>view</button>
 
-
-              </div>
+                </div>
             </div>
-          ))
-        ) : (
-          <p>No posts yet</p>
-        )}
+        ))
+    ) : (
+        <p>No posts yet</p>
+    )}
 
       </div>
 
@@ -786,7 +787,7 @@ const handleView = (post) => {
            
             {/* <div className="modal-user">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}${selectedPost.profileimglink}`}
+                    src={selectedPost.profileimglink}
                     alt=""
                   />
                   <div>
@@ -796,7 +797,7 @@ const handleView = (post) => {
                 </div> */}
 
             <div className="modal-post">
-            <img src={`${import.meta.env.VITE_API_URL}${selectedPost.imglink}`} alt="post"  />
+            <img src={selectedPost.imglink} alt="post" />
             <h2>{selectedPost.post_title}</h2>
             <h2>₹{selectedPost.post_price}</h2>
             <p>{selectedPost.post_description}</p>
