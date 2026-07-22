@@ -23,7 +23,7 @@ function RandomProfile() {
 const handleView = (post) => {
   // console.log("Viewing post:", post);
   setSelectedPost(post);
-  console.log(selectedPost);
+  // console.log(selectedPost);
   setShowModal(true);
 };
   
@@ -145,12 +145,13 @@ useEffect(() => {
                   </div>
                 </div> */}
 
-            <div className="modal-post">
-            <img src={selectedPost.imglink} alt="post" />
-            <h2>{selectedPost.post_title}</h2>
-            <h2>₹{selectedPost.post_price}</h2>
-            <p>{selectedPost.post_description}</p>
-            </div>
+          <div className="modal-post">
+              {console.log("selectedPost imglink:", selectedPost.imglink)}
+              <img src={selectedPost.imglink} alt="post" />
+              <h2>{selectedPost.post_title}</h2>
+              <h2>₹{selectedPost.post_price}</h2>
+              <p>{selectedPost.post_description}</p>
+          </div>
           </div>
         </div>
       )}
