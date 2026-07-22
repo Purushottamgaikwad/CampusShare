@@ -138,19 +138,19 @@ function ChatWindow({ currentUser }) {
         </button>
 
         <img
-          src={
-            activeChatUser.avatar
-              ? `http://localhost:5000${activeChatUser.avatar}`
-              : 'https://via.placeholder.com/36'
-          }
-          alt={activeChatUser.username}
-          onError={e => e.target.src = `https://ui-avatars.com/api/?name=${activeChatUser.username}&size=42`}
-          style={{
-            width:        '36px',
-            height:       '36px',
-            borderRadius: '50%',
-            objectFit:    'cover'
-          }}
+            src={
+                activeChatUser.avatar
+                    ? activeChatUser.avatar
+                    : 'https://via.placeholder.com/36'
+            }
+            alt={activeChatUser.username}
+            onError={e => e.target.src = `https://ui-avatars.com/api/?name=${activeChatUser.username}&size=42`}
+            style={{
+                width:        '36px',
+                height:       '36px',
+                borderRadius: '50%',
+                objectFit:    'cover'
+            }}
         />
 
         {/* Name */}

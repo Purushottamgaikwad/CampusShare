@@ -91,22 +91,19 @@ function ChatListItem({user, onClick}){
             onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
   
       >
-
-        <img  src={
-            user.avatar
-              ? `${import.meta.env.VITE_API_URL}${user.avatar}`
-              : 'https://via.placeholder.com/36'
-          } alt= {user.username}
-                style={{
-                            width:        '42px',
-                            height:       '42px',
-                            borderRadius: '50%',
-                            objectFit:    'cover',
-                            flexShrink:   0
-                        }}
-            // onError={e => e.target.src = 'https://via.placeholder.com/42'}
-
-        />
+                <img src={
+                    user.avatar
+                        ? user.avatar
+                        : 'https://via.placeholder.com/36'
+                } alt={user.username}
+                    style={{
+                        width:        '42px',
+                        height:       '42px',
+                        borderRadius: '50%',
+                        objectFit:    'cover',
+                        flexShrink:   0
+                    }}
+                />
 
 
     <div  style={{ flex: 1, minWidth: 0 }}>

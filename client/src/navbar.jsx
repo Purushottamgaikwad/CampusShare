@@ -66,7 +66,8 @@ const handleLogout = async () => {
                           )
                          :(<>
                             {/* <li></li> */}
-                            <li><Link to="/dashboard/profile"><img src={ profileImg.startsWith("/uploads") ? `http://localhost:5000${profileImg}`: profileImg} alt="userimag"/>profile</Link></li>
+                            <li>
+                            <Link to="/dashboard/profile">  <img src={profileImg} alt="userimage" /> profile </Link></li>
                             <li><Link  onClick={handleLogout}>Logout</Link></li>
                             <li><Link onClick = {()=>{setIsChatOpen(!isChatOpen)}}>Messages💬</Link></li>
                             </>
