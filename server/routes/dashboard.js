@@ -7,6 +7,8 @@ import multer from  'multer';
 import fs from 'fs';
 import path from 'path';
 import { storage } from '../config/cloudinary.js';
+import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
+
 const app = express();
 app.use(cookieParser());
 
@@ -19,8 +21,8 @@ const router = express.Router();
 
 
 
-const upload = multer({ storage });
-
+const upload = multer({ storage: multer.memoryStorage() });
+export { upload };
 //------------------------ JWT authmiddleware ------------------------
 
 
@@ -119,47 +121,57 @@ router.put("/dashboard/edit", authmiddleware, (req, res) => {
 
 //---------------------dashboard profile post -------------------------------------
 
-router.post('/dashboard/profile/post', authmiddleware, upload.single("image"), (req, res) => {
+router.post('/dashboard/profile/post', authmiddleware, upload.single("image"), async (req, res) => {
     const { post_title, post_price, post_description, post_category } = req.body;
-    const imagepath = req.file ? req.file.path : null; // Cloudinary URL now
 
     if (!post_title || !post_description || !post_category || !post_price) {
         return res.status(400).json({ error: "Required fields missing" });
     }
 
-    db.query(
-        "INSERT INTO userposts (user_id, imglink, post_title, post_price, post_description, post_category) VALUES(?,?,?,?,?,?)",
-        [req.userId, imagepath, post_title, post_price, post_description, post_category],
-        (err) => {
-            if (err) return res.status(550).json({ error: "DB error" });
-            res.json({ message: "Post created successfully" });
+    try {
+        let imagepath = null;
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer, "campusshare/posts");
+            imagepath = result.secure_url;
         }
-    );
+
+        db.query(
+            "INSERT INTO userposts (user_id, imglink, post_title, post_price, post_description, post_category) VALUES(?,?,?,?,?,?)",
+            [req.userId, imagepath, post_title, post_price, post_description, post_category],
+            (err) => {
+                if (err) return res.status(550).json({ error: "DB error" });
+                res.json({ message: "Post created successfully" });
+            }
+        );
+    } catch (err) {
+        console.error("Cloudinary upload error:", err);
+        res.status(500).json({ error: "Image upload failed" });
+    }
 });
 //------------------------------delete profile posts--------------------------------
 
-router.put('/dashboard/profile/img', authmiddleware, upload.single("profileImage"), (req, res) => {
-
+router.put('/dashboard/profile/img', authmiddleware, upload.single("profileImage"), async (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: "No image uploaded" });
     }
 
-    const profileimglink = req.file.path; // Cloudinary URL now
+    try {
+        const result = await uploadToCloudinary(req.file.buffer, "campusshare/profiles");
+        const profileimglink = result.secure_url;
 
-    db.query(
-        'UPDATE users SET profileimglink = ? WHERE id = ?',
-        [profileimglink, req.userId],
-        (err) => {
-            if (err) {
-                return res.status(500).json({ error: "DB error" });
+        db.query(
+            'UPDATE users SET profileimglink = ? WHERE id = ?',
+            [profileimglink, req.userId],
+            (err) => {
+                if (err) return res.status(500).json({ error: "DB error" });
+                res.json({ message: "Profile image updated", profileimglink });
             }
-
-            res.json({ message: "Profile image updated", profileimglink });
-        }
-    );
+        );
+    } catch (err) {
+        console.error("Cloudinary upload error:", err);
+        res.status(500).json({ error: "Image upload failed" });
+    }
 });
-
-
 //------------------------------profile posts--------------------------------
 
 router.get('/dashboard/profile/userposts',(req,res)=>{
