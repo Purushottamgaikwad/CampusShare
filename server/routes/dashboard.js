@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import multer from  'multer';
 import fs from 'fs';
 import path from 'path';
-import { storage } from '../config/cloudinary.js';
+// import { storage } from '../config/cloudinary.js';
 import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
 
 const app = express();
