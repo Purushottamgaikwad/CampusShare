@@ -23,6 +23,7 @@ function RandomProfile() {
 const handleView = (post) => {
   // console.log("Viewing post:", post);
   setSelectedPost(post);
+  console.log(selectedPost);
   setShowModal(true);
 };
   
