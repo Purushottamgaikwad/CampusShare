@@ -17,31 +17,7 @@ const router = express.Router();
 
 //----------------------------multer middleware for file upload --------------------------
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
 
-    if (req.originalUrl.includes("/profile/img")) {
-      cb(null, "uploads/profiles");
-    } 
-    else if (req.originalUrl.includes("/post")) {
-      cb(null, "uploads/posts");
-    } 
-    else {
-      cb(null, "uploads"); // fallback
-    }
-
-  },
-
-  filename: (req, file, cb) => {
-    const uniqueName =
-      Date.now() +
-      "_" +
-      Math.round(Math.random() * 1e9) +
-      path.extname(file.originalname);
-
-    cb(null, uniqueName);
-  },
-});
 
 const upload = multer({ storage });
 
