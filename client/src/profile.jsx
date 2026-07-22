@@ -75,30 +75,31 @@ function Profile() {
   //-------------------------------------------------------------------
 
 
-  useEffect(() => {
+useEffect(() => {
     if (!profileImageFile) return;
+    console.log("Attempting upload...", profileImageFile); // ADD THIS LINE
 
     const formData = new FormData();
     formData.append("profileImage", profileImageFile);
 
     fetch(`${import.meta.env.VITE_API_URL}/dashboard/profile/img`, {
-      method: "PUT",
-      credentials: "include",
-      body: formData
+        method: "PUT",
+        credentials: "include",
+        body: formData
     })
-      .then(res => res.json())
-      .then(result => {
-        setData(prev => ({
-          ...prev,
-          user: {
-            ...prev.user,
-            profileimglink: result.profileimglink
-          }
-        }));
-      })
-      .catch(err => console.log(err));
+        .then(res => res.json())
+        .then(result => {
+            setData(prev => ({
+                ...prev,
+                user: {
+                    ...prev.user,
+                    profileimglink: result.profileimglink
+                }
+            }));
+        })
+        .catch(err => console.log(err));
 
-  }, [profileImageFile]);
+}, [profileImageFile]);
 
 //-----------------------------------------------------------------------------
 
